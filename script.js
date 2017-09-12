@@ -16,30 +16,20 @@
 
 // Create the Factory class bellow:
 class Factory {
-  constructor({make, location, airbags, abs, warranty, quantity, options, color, seats, wheels}){
+  constructor(){
     this.make = 'Mazda';
     this.location = 'USA'
     this.airbags = true;
     this.abs = true;
     this.warranty = '60,000 miles / 3 years';
-    this.quantity = quantity;
-    this.options = options;
-    this.color = color;
-    this.seats = seats;
-    this.wheels = wheels;
+  }
+  massBuild(quantity, options){
+    console.log(`Building ${quantity} ${this.color} ${this.trim} ${this.model}'s.`);
+  }
+  customerBuild(color, options){
+    console.log(`Building one ${color} ${this.model} with the following options: ${options}.`);
   }
 }
-  let massBuild = new Factory({
-    options: 'Touring CX5',
-    color: 'red',
-    quantity: 3500
-  });
-  let customerBuild = new Factory({
-    color: 'red',
-    options: 'heated seats, rear spoiler'
-  });
-console.log(`Building ${massBuild.quantity} blue ${massBuild.options}'s'`);
-console.log(`Building one ${customerBuild.color} Sport Mazda3 with the following options: ${customerBuild.options}.`);
 
 
 
@@ -51,21 +41,26 @@ console.log(`Building one ${customerBuild.color} Sport Mazda3 with the following
 // Car should also have the following additional properties: enginesize (4), navigation (true), backupcamera (true), warranty (100,000 miles / 5 years)
 // Write your code below:
 class Car extends Factory{
-  constructor({warranty, color, seats, wheels, model, doors, enginetype, transmission, trim, wheelstrim, audio, seatstrim, moonroof, enginesize, navigation, backupcamera}){
-    super({warranty, color, seats, wheels});
-    this.model = model;
-    this.doors = doors;
-    this.enginetype = enginetype;
-    this.transmission = transmission;
-    this.trim = trim;
-    this.wheelstrim = wheelstrim;
-    this.audio = audio;
-    this.seatstrim = seatstrim;
-    this.moonroof = moonroof;
+  constructor(options){
+    super({});
+    this.model = options.model;
+    this.doors = options.doors;
+    this.enginetype = options.enginetype;
+    this.transmission = options.transmission;
+    this.trim = options.trim;
+    this.wheelstrim = options.wheelstrim;
+    this.audio = options.audio;
+    this.seatstrim = options.seatstrim;
+    this.moonroof = options.moonroof;
     this.warranty = '100,000 miles / 5 years';
     this.enginesize = 4;
     this.navigation = true;
     this.backupcamera = true;
+    this.quantity = options.quantity;
+    this.options = options.options;
+    this.color = options.color;
+    this.seats = options.seats;
+    this.wheels = options.wheels;
   }
 }
 
@@ -77,10 +72,10 @@ class Car extends Factory{
 // Sports cars should also have the following additional properties: moonroof (false), enginetype (gasoline), convertible (true), doors (2)
 // Write your code below:
 class Sport extends Car{
-  constructor(model, transmission, wheelstrim, seatstrim, color, trim, moonroof, enginetype, convertible, doors, top, audio){
-    super({transmission, wheelstrim, seatstrim, color, model, trim});
-    this.top = top;
-    this.audio = audio;
+  constructor(options){
+    super({});
+    this.top = options.top;
+    this.audio = options.audio;
     this.moonroof = false;
     this.enginetype = 'gasoline';
     this.convertible = true;
@@ -98,16 +93,21 @@ class Sport extends Car{
 // It should also inherit the warranty property so we can extend it to: 150,000 miles / 6 years.
 // Write your code below:
 class Truck extends Factory{
-  constructor(warranty, backupcamera = true, audio = true, model, enginesize, hitch, bed, navigation){
-    super({color, warranty});
-    this.model = model;
-    this.enginesize = enginesize;
-    this.hitch = hitch;
-    this.bed = bed;
-    this.navigation = navigation;
-    this.backupcamera = backupcamera;
-    this.audio = audio;
+  constructor(options){
+    super({});
+    this.model = options.model;
+    this.enginesize = options.enginesize;
+    this.hitch = options.hitch;
+    this.bed = options.bed;
+    this.navigation = options.navigation;
+    this.backupcamera = true;
+    this.audio = true;
     this.warranty = '150,000 miles / 6 years';
+    this.quantity = options.quantity;
+    this.options = options.options;
+    this.color = options.color;
+    this.seats = options.seats;
+    this.wheels = options.wheels;
   }
 }
 
@@ -144,7 +144,7 @@ console.log(mazda3);
 // It should print: "Building 35000 Red Touring Mazda3's."
 // Write your code below:
 
-console.log(`Building ${massBuild.quantity} ${massBuild.color} ${massBuild.options}'s.'`);
+console.log(mazda3.massBuild(35000));
 
 
 
@@ -154,6 +154,7 @@ console.log(`Building ${massBuild.quantity} ${massBuild.color} ${massBuild.optio
 // It should read: "Building one yellow Touring Mazda3 with the following options: weather package, satellite radio, rear spoiler"
 // Write your code below:
 
+console.log(mazda3.customerBuild('yellow', 'mazda3', ['weather package, satellite radio, rear spoiler']));
 
 
 
@@ -187,7 +188,6 @@ console.log(miataRf);
 // Print miataRf, calling massBuild(), building 15,000
 // It should print: "Building 15000 Red Grand Touring Miata-RF's."
 // Write your code below:
-
 
 
 
